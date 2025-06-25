@@ -154,6 +154,9 @@ jint JVM_GetInterfaceVersion() {
     return JVM_INTERFACE_VERSION;
 }
 
+void JVM_BeforeHalt() {
+
+}
 
 /* JVM_CurrentTimeMillis */
 
@@ -500,7 +503,6 @@ void JVM_ResolveClass(JNIEnv* env, jclass cls) {
     IGNORED("JVM_ResolveClass");
 }
 
-
 /* JVM_FindClassFromBootLoader */
 
 jclass JVM_FindClassFromBootLoader(JNIEnv *env, const char *name) {
@@ -545,6 +547,16 @@ jclass JVM_FindClassFromClassLoader(JNIEnv *env, const char *name,
     return class;
 }
 
+/* JVM_FindClassFromCaller */
+
+jclass JVM_FindClassFromCaller(JNIEnv *env, const char *name, jboolean init,
+                               jobject loader, jclass caller) {
+
+    TRACE("JVM_FindClassFromCaller(env=%p, name=%s, init=%d, loader=%p,"
+          " caller=%p)", env, name, init, loader, caller);
+
+    return JVM_FindClassFromClassLoader(env, name, init, loader, FALSE);
+}
 
 /* JVM_FindClassFromClass */
 
@@ -610,7 +622,7 @@ jstring JVM_GetClassName(JNIEnv *env, jclass class) {
     Object *string;
     char *dot_name = classlibExternalClassName(class);
 
-    TRACE("JVM_GetClassName(env=%p, cls=%p)", env, cls);
+    TRACE("JVM_GetClassName(env=%p, class=%p)", env, class);
 
     string = createString(dot_name);
     sysFree(dot_name);
@@ -669,6 +681,34 @@ void JVM_SetClassSigners(JNIEnv *env, jclass cls, jobjectArray signers) {
     cb->signers = signers;
 }
 
+/* JVM_GetResourceLookupCacheURLs
+   is part of the
+   JDK-8061651 JDK8u API
+*/
+
+jobjectArray JVM_GetResourceLookupCacheURLs(JNIEnv *env, jobject loader) {
+    return NULL; // tell OpenJDK 8 that the lookup cache API is unavailable
+}
+
+/* JVM_GetResourceLookupCache
+   is unused however it is part of the
+   JDK-8061651 JDK8u API
+*/
+
+jintArray JVM_GetResourceLookupCache(JNIEnv *env, jobject loader, const char *resource_name) {
+    UNIMPLEMENTED("JVM_GetResourceLookupCache");
+    return 0;
+}
+
+/* JVM_KnownToNotExist
+   is unused however it is part of the
+   JDK-8061651 JDK8u API
+*/
+
+jboolean JVM_KnownToNotExist(JNIEnv *env, jobject loader, const char *classname) {
+    UNIMPLEMENTED("JVM_KnownToNotExist");
+    return 0;
+}
 
 /* JVM_GetProtectionDomain */
 
