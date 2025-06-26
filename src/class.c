@@ -379,6 +379,8 @@ Class *parseClass(char *classname, char *data, int offset, int len,
     }
 
     classblock->class_loader = class_loader;
+    // Update instance var classLoader in ClassBlock [pad] (from class.class)
+    *((Object**)&((char*)class)[44]) = class_loader;
 
     READ_U2(intf_count = classblock->interfaces_count, ptr, len);
     interfaces = classblock->interfaces =
