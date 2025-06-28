@@ -3004,6 +3004,15 @@ void JVM_GetVersionInfo(JNIEnv *env, jvm_version_info *info, size_t info_size) {
                          (VERSION_MICRO & 0xff);
 }
 
+/*
+ * JamVM does not support the jvmstat framework thus this is left unimplemented.
+ */
+
+jstring JVM_GetTemporaryDirectory(JNIEnv *env) {
+    UNIMPLEMENTED("JVM_GetTemporaryDirectory");
+
+    return 0;
+}
 
 /* JVM_RegisterSignal */
 
