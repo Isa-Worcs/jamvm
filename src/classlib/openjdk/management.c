@@ -196,6 +196,15 @@ jobjectArray jmm_DumpThreads(JNIEnv *env, jlongArray thread_ids,
     return NULL;
 }
 
+jobjectArray jmm_DumpThreadsMaxDepth(JNIEnv *env, jlongArray thread_ids,
+					jboolean locked_monitors,
+                     			jboolean lockedSynchronizers,
+					jint maxDepth) {
+
+    UNIMPLEMENTED("jmm_DumpThreadsMaxDepth");
+    return NULL;
+}
+
 jobjectArray jmm_GetLoadedClasses(JNIEnv *env) {
     UNIMPLEMENTED("jmm_GetLoadedClasses");
     return NULL;
@@ -313,7 +322,7 @@ const struct jmmInterface_1_ jmm_interface = {
     jmm_DumpHeap0,
     jmm_FindDeadlockedThreads,
     jmm_SetVMGlobal,
-    NULL,
+    jmm_DumpThreadsMaxDepth,
     jmm_DumpThreads
 };
 

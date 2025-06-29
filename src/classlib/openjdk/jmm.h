@@ -96,7 +96,7 @@ struct jmmInterface_1_ {
     jint (*DumpHeap0)(JNIEnv *env, jstring outputfile, jboolean live);
     jobjectArray (*FindDeadlocks)(JNIEnv *env, jboolean object_monitors_only);
     void (*SetVMGlobal)(JNIEnv *env, jstring flag_name, jvalue new_value);
-    void *reserved6;
+    jobjectArray (*DumpThreadsMaxDepth)(JNIEnv *env, jlongArray ids, jboolean lockedMonitors, jboolean lockedSynchronizers, jint maxDepth);
     jobjectArray (*DumpThreads)(JNIEnv *env, jlongArray ids, jboolean lockedMonitors, jboolean lockedSynchronizers);
 };
 
