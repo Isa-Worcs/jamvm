@@ -58,6 +58,9 @@ int nativeExtraArg(MethodBlock *mb) {
     return RET_DFLT;
 }
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+
 u4 *callJNIMethod(void *env, Class *class, char *sig, int ret_type,
                   u4 *ostack, unsigned char *f, int args) {
 
@@ -114,4 +117,6 @@ u4 *callJNIMethod(void *env, Class *class, char *sig, int ret_type,
 
     return ostack;
 }
+
+#pragma GCC pop_options
 #endif
